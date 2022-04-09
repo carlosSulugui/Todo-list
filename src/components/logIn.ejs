@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/login-style.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-content">
+            <h2>Iniciar Sesión</h2>
+                <form action="" class="card-form" id="login">
+                    <input type="email" placeholder="Correo Electroico" id="email"/>
+                    <input type="password" placeholder="Password" id="password"/>
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+                <p class="center">o <a href="/account">Registrarse</a></p>
+            </div>
+        </div>  
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+    
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyA7E0dosIqg0oC8GlLgcHL95zhQ1m_hLkA",
+          authDomain: "e-dashboard-gt.firebaseapp.com",
+          projectId: "e-dashboard-gt",
+          storageBucket: "e-dashboard-gt.appspot.com",
+          messagingSenderId: "931283681392",
+          appId: "1:931283681392:web:25d98340022b9558ea34b5"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
+    <script src="../js/signIn.js" type="module"></script>
+</body>
+</html>
