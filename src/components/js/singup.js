@@ -37,6 +37,7 @@ function createUser(email , password){
     }).catch(erorr =>{
         console.log(error.message)
     })
+    r
 }
 
 console.log("hola")
