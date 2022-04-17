@@ -22,6 +22,7 @@ const auth = getAuth(app)
 const form = document.querySelector("#login")
 const email = document.querySelector("#email")
 const password = document.querySelector("#password")
+const name = document.getElementById("name")
 
 
 
