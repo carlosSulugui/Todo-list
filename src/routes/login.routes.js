@@ -1,9 +1,8 @@
 const {Router} = require('express');
-const path = require('path');
 const router = Router();
-const controller = require(path.join(__dirname, '../controllers/login.controller'));
+const controller = require('../controllers/login.controller');
+const {isUnlogged} = require('../controllers/verifySession');
 
-
-router.get('/login', controller.index);
+router.get('/login',isUnlogged, controller.index);
 
 module.exports = router;
