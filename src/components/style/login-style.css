@@ -46,3 +46,11 @@ button:hover{
     background: #064bb3;
     transition: 0.5s ease;
 }
+
+.failed-text{
+    color: #c0392b;
+}
+
+.hidden{
+    display: none;
+}

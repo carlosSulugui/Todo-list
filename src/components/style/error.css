@@ -1,0 +1,24 @@
+
+body{
+    position: relative;
+    background-color: #12172a;
+    color: #ccc;
+    font-family: sans-serif;
+}
+
+p{
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+a{
+    color:#ccc;
+    font-size: 1.5rem;
+}
+
+.error-container{
+    margin-top: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

@@ -22,7 +22,8 @@ const auth = getAuth(app)
 const form = document.querySelector("#login")
 const email = document.querySelector("#email")
 const password = document.querySelector("#password")
-const name = document.getElementById("name")
+const errorMessage = document.getElementById("error-message");
+
 
 form.addEventListener("submit", e =>{
   e.preventDefault()
@@ -47,11 +48,16 @@ function logIn (email, password,typeForm){
     });
   })
   .then(() => {
-    return signOutSession();
-  })
-  .then(() => {
     window.location.assign('/profile');
+  })
+  .catch(() => {
+    errorMessage.classList.remove('hidden');
+    setTimeout(() => {
+      errorMessage.classList.add('hidden');
+    }, 3000);
+    return signOutSession();
   });
+  
   return false;
 }
 
