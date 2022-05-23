@@ -5,6 +5,7 @@ const {isLogged} = require('../controllers/verifySession');
 
 router.post('/sessionLogin', controller.sessionLogin)
 router.get('/profile', isLogged,controller.profile);
-router.get('/sessionLogOut', controller.sessionLogOut)
+router.post('/addTask', isLogged, controller.addTask);
+router.get('/sessionLogOut', controller.sessionLogOut);
 
 module.exports = router;

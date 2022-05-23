@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/style/home-main.css">
+<main class="home-container">
+    <button class="add-button" id="add-task-button">+</button>
+    <input type="text" name="" id="" class="home-search" placeholder="Buscar Tarea">
+    <div class="todo-card " id="add-task">
+            <form action="" id="form-task" class="form-add-todo">
+                <button class="add-task-close" id="add-task-close-button">X</button>    
+                <h2 class="title-task">Agregar Tarea </h2>
+                <input type="text"  id="add-task__title" class="input-add-task" placeholder="Titulo">
+                <label for="add-task__date">Fecha Límite
+                    <input type="date"  name="add-task__date" id="add-task__date" class="input-add-task">
+                </label>
+                <textarea name="" cols="30" rows="10" placeholder="Descripción" class="textarea-add-task" id="description"></textarea>
+                <input type="submit" class="btn" value="Add Task">
+            </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="/js/home-main.js"></script>
+<script src="/js/insertTask.js"></script>

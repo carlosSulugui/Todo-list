@@ -12,6 +12,8 @@ module.exports.numeroTareasIncumplidas = async() => {
     return snap;
 };
 
+//Peticiones de datos del usuario
+
 module.exports.userData = async (uid) => {
     return await (await admin.firestore().collection('users').doc(uid).get()).data();
 };
@@ -47,3 +49,15 @@ module.exports.createUserWithName = (name,uid) =>{
         name: name
     });
 };
+
+//crud tareas
+
+module.exports.postTask =  async (task, user) => {
+    return admin.firestore().collection('tasks').add({
+        title: task.title,
+        description: task.description,
+        date: task.date,
+        completed: task.completed,
+        user: user
+    });
+}
