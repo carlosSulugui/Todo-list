@@ -61,3 +61,75 @@ module.exports.postTask =  async (task, user) => {
         user: user
     });
 }
+
+function checkStatus(date, status){
+    const today = new Date();
+    const dateTask = new Date(date) * 1000;
+
+    if(today > dateTask && !status){
+        return "no completado";         
+    }
+    if(today < dateTask && !status){
+        return "pendiente";
+    }
+    if((today < dateTask || today > date) && status){
+        return "completado";
+    }
+}
+
+function createColorStatus(status){
+    if(status === 'no completado'){
+        return "#c0392b";
+    }
+    if(status === 'pendiente'){
+        return '#2980b9';
+    }
+    if(status === 'completado'){
+        return '#16a085';
+    }
+}
+
+module.exports.getTask = async (uidUser) => {
+    const {docs} =  await admin.firestore().collection('tasks').where('user', '==' , uidUser).get();
+
+    return docs.map( doc => {
+        const date = doc.data()['date'];
+        const status = doc.data()['completed'];
+        const statusTask = checkStatus(date,status);
+        const colorStatus = createColorStatus(statusTask);
+
+        return {
+            id: doc.id,
+            title: doc.data()['title'],
+            status: statusTask,
+            colorStatus: colorStatus
+        }
+    });
+};
+
+module.exports.getTaskDetail = async (idTask) => {
+    const task = await admin.firestore().collection('tasks').doc(idTask).get();
+    const taskData = task.data();
+    const date = new Date(taskData.date * 1000);
+
+    return {
+        id: task.id,
+        title: taskData.title,
+        description: taskData.description,
+        status: taskData.completed,
+        date: date
+    }
+};
+
+module.exports.updateTask = async (idTask, taskUpdated, date, completed) => {
+    return admin.firestore().collection('tasks').doc(idTask).update({
+        title: taskUpdated.title,
+        description: taskUpdated.description,
+        date:date,
+        completed: completed
+    });
+};
+
+module.exports.deleteTask = async (idTask) => {
+    return admin.firestore().collection('tasks').doc(idTask).delete();
+};

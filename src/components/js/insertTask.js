@@ -24,8 +24,10 @@ form.addEventListener('submit', e => {
 
     if(request){
         alert('Tarea agregada correctamente!!');
+        window.location.reload();
     }
     if(!request){
         alert('Falló la creación de tarea');
+        window.location.reload();
     }
 });

@@ -27,6 +27,8 @@ app.use(require(path.join(__dirname, '/routes/startPage.routes')));
 app.use(require(path.join(__dirname, '/routes/login.routes')));
 app.use(require(path.join(__dirname, '/routes/account.routes')));
 app.use(require(path.join(__dirname,'/routes/profile.routes')));
+app.use(require(path.join(__dirname, '/routes/deleteTask.routes')));
+app.use(require(path.join(__dirname, '/routes/editTask.routes')));
 app.use((req,res) => {
     res.sendFile(path.join(__dirname, '/components/error.html'));
 });

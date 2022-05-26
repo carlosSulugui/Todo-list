@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/edit-task.css">
+    <title>Editar Tarea</title>
+</head>
+<body>
+    <%- include('navigation-menu')%>
+
+    <h1 class="detail-title">Detalle de tarea</h1>
+    <form action="" id="task-detail-form" class="task-detail">
+        <input type="text" name="" id="" class="hidden" value="<%= taskDetail.id%>">
+        <input type="text" name="" id="task-detail-title" class="task-detail__title" value="<%=taskDetail.title%>">
+        <textarea name="" cols="30" rows="10" class="task-detail__description" id="description"><%= taskDetail.description%></textarea>
+        <input type="text" name="" class="hidden" id="current-date" value="<%=taskDetail.date%>">
+        <p id="" class="task-detail__date">
+            <%= taskDetail.date.getUTCDate()%>-<%= taskDetail.date.getMonth() + 1%>-<%= taskDetail.date.getFullYear()%>
+        </p>
+        <input type="date" name="" id="new-date" class="task-detail__new-date">
+        <div class="task-detail__group-radio">
+            <input type="radio" id="radio-completed" name="status" value="completado" class="radio-option">
+            <label for="radio-completed">completado</label>
+            <input type="radio" id="radio-incompleted" name="status" value="no completado" class="radio-option"
+            checked>
+            <label for="radio-incompleted">no completado</label>
+            
+        </div>
+        <input type="submit" class="task-detail__button" value="Actualizar">
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="/js/updateTask.js"></script>
+</body>
+</html>

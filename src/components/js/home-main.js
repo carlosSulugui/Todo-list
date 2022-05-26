@@ -18,3 +18,30 @@ addTaskCloseButton.addEventListener('click', e => {
     e.preventDefault();
     addTask.classList.remove('hidden-add-task');
 });
+
+//Buscador reactivo
+
+const search = document.getElementById('search');
+const cards = document.querySelectorAll('.card');
+let keyword = "";
+
+search.addEventListener('keyup', e => {
+    keyword = search.value;
+
+    searchResult(keyword);
+});
+
+function searchResult(keyword){
+    if(keyword === ""){
+        cards.forEach(card => card.classList.remove('hidden-card'));
+    }else{
+        cards.forEach(card => {
+            if(card.children[2].textContent.toLowerCase().indexOf(keyword.toLowerCase()) > -1){
+                console.log(card.children[2].textContent);
+                card.classList.remove('hidden-card');
+            }else{
+                card.classList.add('hidden-card');
+            }
+        });
+    }
+}

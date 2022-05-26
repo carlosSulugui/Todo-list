@@ -1,4 +1,4 @@
-const {userData, createSession, createUserWithName, postTask} = require('../firebase/firebaseAdmin');
+const {userData, createSession, createUserWithName, postTask, getTask} = require('../firebase/firebaseAdmin');
 
 const controller = {};
 
@@ -29,8 +29,9 @@ controller.sessionLogin = async (req,res) => {
 
 controller.profile = async (req,res) => {
     const user = await userData(req.uid);
-
-    res.render('home', {name: user.name})
+    const tasks = await getTask(req.uid);
+    console.log(user.name);
+    res.render('home', {name: user.name, tasks})
 };
 
 controller.addTask = async (req,res) => {
