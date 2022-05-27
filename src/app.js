@@ -24,6 +24,7 @@ app.set('views', path.join(__dirname, '/components'));
 
 app.use(express.static(path.join(__dirname, '/components')));
 app.use(require(path.join(__dirname, '/routes/startPage.routes')));
+app.use(require(path.join(__dirname, '/routes/sessionLogin.routes')));
 app.use(require(path.join(__dirname, '/routes/login.routes')));
 app.use(require(path.join(__dirname, '/routes/account.routes')));
 app.use(require(path.join(__dirname,'/routes/profile.routes')));

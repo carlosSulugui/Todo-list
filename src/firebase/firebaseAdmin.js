@@ -42,12 +42,10 @@ module.exports.createUserWithNameAndRol = (name,token, uid) => {
     }
 };
 
-module.exports.createUserWithName = (name,uid) =>{
-    const userDB = admin.firestore().collection('users');
-
-    const user = userDB.doc(uid).set({
-        name: name
-    });
+module.exports.createUserWithName = async (name,uid) =>{
+   return admin.firestore().collection('users').doc(uid).set({
+       name: name
+   });
 };
 
 //crud tareas
