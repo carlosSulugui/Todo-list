@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/home-main.css">
+    <title>Para Hoy</title>
+</head>
+<body>
+    <%- include('navigation-menu')%>
+
+    <h1 style="text-align: center;font-weight: 300;color:#666;margin-top:30px;"><%=message%></h1>
+    <div class="home-container">
+        <div class="cards">
+            <% tasks.forEach(task => {%>
+                
+                <div class="card" style="--status-color:<%=task.colorStatus%>;">
+                    <input type="text" class="hidden-card" name="" value="<%=task.id%>">
+                    <p class="card__status" style="--status-color:<%=task.colorStatus%>;"><%=task.status%></p>
+                    <h2 class="card__title"><%= task.title%></h2>
+                    <div class="card__buttons">
+                        <button id="delete-button" class="card__delete card__button">Eliminar</button>
+                        <button class="card__details card__button">Detalles</button>
+                    </div>
+                </div>
+            <%});%>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="/js/editTodayTask.js"></script>
+    <script src="/js/deleteTask.js"></script>
+   
+
+</body>
+</html>

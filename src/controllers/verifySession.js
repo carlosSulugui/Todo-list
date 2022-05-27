@@ -20,7 +20,6 @@ module.exports.isUnlogged = async(req,res,next) =>{
         const session = await userSession(sessionCookie);
         res.redirect('/profile');
     }catch(error){
-        console.log("parece que hubo un error o no estas logeado, te redireccionare a login");
         next();
     }
 };

@@ -1,0 +1,109 @@
+
+@property --percentage{
+    syntax: '<number>';
+    inherits:true;
+    initial-value:0;
+}
+
+:root{
+    --statistics__card-font-color: #666;
+}
+
+.dashboard-container{
+    display: flex;
+    min-width: 1000px;
+    max-width: 1000px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.statistics__card-container , .statistics__efficiency{
+    max-width: 50%;
+    min-width: 50%;
+    padding: 10px;
+}
+
+.statistics__card-container{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.statistics__card{
+    min-width: 80%;
+    max-width: 80%;
+    min-height: 150px;
+    margin-bottom: 50px;
+    /* box-shadow: 0px 3px 1px rgba(0,0,0,0.3); */
+}
+
+.statistics__card-title{
+    font-size: 1em;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--statistics__card-font-color);
+}
+
+.statistics__card-info{
+    text-align: center;
+    font-size: 2em;
+    color: var(--statistics__card-font-color);
+}
+
+.statistics__efficiency-title{
+    font-size: 2em;
+    color: #666;
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+
+.statistics__efficiency-percentage{
+    text-align: center;
+    font-size: 3em; 
+}
+
+.chart{
+    position: relative;
+    justify-content: space-between;
+    width: 250px;
+    height: 250px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    background-color: #fff;
+    font-size: 2em;
+    color:var(--color-chart-percentage, #111);
+    text-align:center;
+    line-height: 250px;
+}
+
+.chart:before{
+    content:"";
+    position:absolute;
+    width: 130%;
+    height:130%;
+    left: -37px;
+    top: -37px;
+    border-radius: 50%;
+    background:conic-gradient(var(--color-chart-percentage, green) calc(var(--percentage, 0)*1%), var(--color-chart,#111) 1deg);
+    animation:chart-percentage 1s ease-in-out;
+    z-index:-1;
+}
+
+@keyframes chart-percentage{
+    from{
+        --percentage:0;
+    }
+}
+
+.statistics__efficienty__total-tasks{
+    margin-top: 80px;
+    text-align: center;
+    font-size: 1em;
+    color: #006266;
+}

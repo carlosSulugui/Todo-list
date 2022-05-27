@@ -1,6 +1,8 @@
 const {userData, createSession, createUserWithName, postTask, getTask} = require('../firebase/firebaseAdmin');
-
+const {starterCards} = require('./starterCards');
 const controller = {};
+
+
 
 controller.sessionLogin = async (req,res) => {
     const idToken = req.body.idToken.toString();
@@ -19,6 +21,9 @@ controller.sessionLogin = async (req,res) => {
         const name = req.body.name.toString();
         const uid = req.body.uid.toString();
         createUserWithName(name,uid);
+        const cards = starterCards();
+        const postWelcomeCard = await postTask(cards.welcome, uid);
+        const postGetStartedCard = await postTask(cards.getStarted, uid);
        }
       
        
@@ -30,7 +35,6 @@ controller.sessionLogin = async (req,res) => {
 controller.profile = async (req,res) => {
     const user = await userData(req.uid);
     const tasks = await getTask(req.uid);
-    console.log(user.name);
     res.render('home', {name: user.name, tasks})
 };
 

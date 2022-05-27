@@ -62,17 +62,25 @@ module.exports.postTask =  async (task, user) => {
     });
 }
 
-function checkStatus(date, status){
-    const today = new Date();
-    const dateTask = new Date(date) * 1000;
+function getLocalTime(){
+    todayGMT = new Date();
+    localDate = `${todayGMT.getFullYear()}-${todayGMT.getMonth()+1}-${todayGMT.getDate()}`;
+    return new Date(localDate);
+}
 
+function checkStatus(date, status){
+    const today = getLocalTime();
+    const dateTask = new Date(date * 1000);
+    if((today.getFullYear() === dateTask.getFullYear() && today.getMonth() === dateTask.getMonth() && today.getDate() === dateTask.getUTCDate())&& !status){
+        return 'pendiente';
+    }
     if(today > dateTask && !status){
         return "no completado";         
     }
     if(today < dateTask && !status){
         return "pendiente";
     }
-    if((today < dateTask || today > date) && status){
+    if((today < dateTask || today > dateTask) && status){
         return "completado";
     }
 }
@@ -121,6 +129,102 @@ module.exports.getTaskDetail = async (idTask) => {
     }
 };
 
+module.exports.getTodaysTask = async (uidUser) => {
+    const {docs} = await admin.firestore().collection('tasks').where('user', '==', uidUser).get();
+
+    const todayTasks = docs.filter(doc => {
+        const today = getLocalTime();
+        const status = doc.data()['completed'];
+        const dateTask = new Date(doc.data()['date'] * 1000);
+        if((today.getFullYear() === dateTask.getFullYear() && today.getMonth() === dateTask.getMonth() && today.getDate() === dateTask.getUTCDate())&& !status){
+            return doc;
+        }
+    });
+
+    return todayTasks.map( doc => {
+        const date = doc.data()['date'];
+        const status = doc.data()['completed'];
+        const statusTask = checkStatus(date,status);
+        const colorStatus = createColorStatus(statusTask);
+
+        return {
+            id: doc.id,
+            title: doc.data()['title'],
+            status: statusTask,
+            colorStatus: colorStatus
+        }
+    });
+};
+
+module.exports.getIncompletedTaks = async (uidUser) => {
+    const {docs} = await admin.firestore().collection('tasks').where('user', '==', uidUser).get();
+
+    const incompletedTasks = docs.filter(doc => {
+        const today = getLocalTime();
+        const status = doc.data()['completed'];
+        const dateTask = new Date(doc.data()['date'] * 1000);
+        if(today > dateTask && !status && !(today.getFullYear() === dateTask.getFullYear() && today.getMonth() === dateTask.getMonth() && today.getDate() === dateTask.getUTCDate())){
+            return doc;         
+        }
+    });
+
+    return incompletedTasks.map( doc => {
+        const date = doc.data()['date'];
+        const status = doc.data()['completed'];
+        const statusTask = checkStatus(date,status);
+        const colorStatus = createColorStatus(statusTask);
+
+        return {
+            id: doc.id,
+            title: doc.data()['title'],
+            status: statusTask,
+            colorStatus: colorStatus
+        }
+    });
+};
+
+module.exports.getStatistics = async (uidUser) => {
+    const {docs} = await admin.firestore().collection('tasks').where('user', '==', uidUser).get();
+    
+    const completedTask  = docs.filter(doc => {
+        if(doc.data()['completed']){
+            return doc;
+        }
+    });
+
+    const incompletedTasks = docs.filter(doc => {
+        const today = getLocalTime();
+        const status = doc.data()['completed'];
+        const dateTask = new Date(doc.data()['date'] * 1000);
+
+        if(today > dateTask && !status && !(today.getFullYear() === dateTask.getFullYear() && today.getMonth() === dateTask.getMonth() && today.getDate() === dateTask.getUTCDate())){
+            return doc;         
+        }
+    });
+
+    const pendingTask = docs.filter(doc => {
+        const today = getLocalTime();
+        const status = doc.data()['completed'];
+        const dateTask = new Date(doc.data()['date'] * 1000);
+
+        if(((today.getFullYear() === dateTask.getFullYear() && today.getMonth() === dateTask.getMonth() && today.getDate() === dateTask.getUTCDate())&& !status) || (today < dateTask && !status)){
+            return doc;
+        }
+    });
+
+    const totalTasks = completedTask.length + incompletedTasks.length + pendingTask.length;
+    const efficiency = (totalTasks === 0 && incompletedTasks.length === 0)? 0:((completedTask.length + pendingTask.length) * 100) / totalTasks;
+
+    return {
+        totalTasks: totalTasks,
+        completed: completedTask.length,
+        incompleted: incompletedTasks.length,
+        pending: pendingTask.length,
+        efficiency: efficiency
+    };
+};
+
+
 module.exports.updateTask = async (idTask, taskUpdated, date, completed) => {
     return admin.firestore().collection('tasks').doc(idTask).update({
         title: taskUpdated.title,
@@ -133,3 +237,5 @@ module.exports.updateTask = async (idTask, taskUpdated, date, completed) => {
 module.exports.deleteTask = async (idTask) => {
     return admin.firestore().collection('tasks').doc(idTask).delete();
 };
+
+

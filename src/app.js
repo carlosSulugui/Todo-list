@@ -29,6 +29,9 @@ app.use(require(path.join(__dirname, '/routes/account.routes')));
 app.use(require(path.join(__dirname,'/routes/profile.routes')));
 app.use(require(path.join(__dirname, '/routes/deleteTask.routes')));
 app.use(require(path.join(__dirname, '/routes/editTask.routes')));
+app.use(require(path.join(__dirname, '/routes/todaysTask.routes')));
+app.use(require(path.join(__dirname, '/routes/incompletedTask.routes')));
+app.use(require(path.join(__dirname, '/routes/statistics.routes')));
 app.use((req,res) => {
     res.sendFile(path.join(__dirname, '/components/error.html'));
 });

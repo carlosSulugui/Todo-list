@@ -21,12 +21,19 @@
         </p>
         <input type="date" name="" id="new-date" class="task-detail__new-date">
         <div class="task-detail__group-radio">
-            <input type="radio" id="radio-completed" name="status" value="completado" class="radio-option">
-            <label for="radio-completed">completado</label>
-            <input type="radio" id="radio-incompleted" name="status" value="no completado" class="radio-option"
-            checked>
-            <label for="radio-incompleted">no completado</label>
-            
+            <%if(taskDetail.status){%>
+                <input type="radio" id="radio-completed" name="status" value="completado" class="radio-option"
+                checked>
+                <label for="radio-completed">completado</label>
+                <input type="radio" id="radio-incompleted" name="status" value="no completado" class="radio-option">
+                <label for="radio-incompleted">no completado</label>
+            <%}else{%>
+                <input type="radio" id="radio-completed" name="status" value="completado" class="radio-option">
+                <label for="radio-completed">completado</label>
+                <input type="radio" id="radio-incompleted" name="status" value="no completado" class="radio-option"
+                checked>
+                <label for="radio-incompleted">no completado</label>
+            <%}%>
         </div>
         <input type="submit" class="task-detail__button" value="Actualizar">
     </form>

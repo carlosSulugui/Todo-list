@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/home-main.css">
+    <link rel="stylesheet" href="/style/dashboard.css">
+    <title>Para Hoy</title>
+</head>
+<body>
+    <%- include('navigation-menu')%>
+
+
+    <div class="dashboard-container">
+    
+        <div class="statistics__card-container">
+            <div class="statistics__card">
+                <h2 class="statistics__card-title" style="--statistics__card-font-color:#16a085;">Tareas Completadas</h2>
+                <p class="statistics__card-info" style="--statistics__card-font-color:#16a085;"    >
+                    <%=statistics.completed%>
+                </p>
+            </div>
+            <div class="statistics__card">
+                <h2 class="statistics__card-title" style="--statistics__card-font-color:#c0392b;">Tareas Incompletadas</h2>
+                <p class="statistics__card-info" style="--statistics__card-font-color:#c0392b;">
+                    <%=statistics.incompleted%>
+                </p>
+            </div>
+            <div class="statistics__card">
+                <h2 class="statistics__card-title" style="--statistics__card-font-color:#2980b9;">Tareas Pendientes</h2>
+                <p class="statistics__card-info" style="--statistics__card-font-color:#2980b9;">
+                    <%=statistics.pending%>
+                </p>
+            </div>
+        </div>
+
+        <div class="statistics__efficiency">
+            <h2 class="statistics__efficiency-title ">Porcentaje de eficiencia</h2>
+
+            <div class="chart-card__chart-details">
+                <div class="chart" 
+                style="--color-chart:#12CBC4;--color-chart-percentage:#1289A7;
+                    --percentage:<%=statistics.efficiency%>;">
+                    <%=statistics.efficiency%>%
+                </div>
+            </div>
+
+            <p class="statistics__efficienty__total-tasks">Total de tareas: <%= statistics.totalTasks%></p>
+        </div>
+    </div>
+   
+</body>
+</html>
